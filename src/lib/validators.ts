@@ -25,6 +25,7 @@ export const signInFormSchema = object({
   ),
   password: string().min(3, "Password must be at least 3 characters"),
 });
+
 export const signUpFormSchema = object({
   name: string().min(3, "Name must be at least 3 characters"),
   email: email("Invalid email address").min(
@@ -36,4 +37,26 @@ export const signUpFormSchema = object({
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Password do not match",
   path: ["confirmPassword"],
+});
+
+export const cartItemSchema = object({
+  productId: string().min(1, "Product is required"),
+  name: string().min(1, "Name is required"),
+  price: currency,
+  image: string().min(1, "Image is required"),
+  slug: string().min(1, "Slug is required"),
+  quantity: coerce
+    .number()
+    .int()
+    .nonnegative("Quantity must be a postitive number"),
+});
+
+export const insertCartSchema = object({
+  items: array(cartItemSchema).min(1, "Cart must have at least 1 product"),
+  itmesPrice: currency,
+  totalPrice: currency,
+  shippingPrice: currency,
+  taxPrice: currency,
+  sessionCartId: string().min(1, "Session card id is required"),
+  userId: string().optional().nullable(),
 });
