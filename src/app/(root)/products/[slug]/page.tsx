@@ -1,4 +1,4 @@
-import { getProductBySlug } from "@/actions/product-action";
+import { getProductBySlug } from "@/actions/product.actions";
 import ProductImages from "@/components/shared/product/product-images";
 import ProductPrice from "@/components/shared/product/product-price";
 import { Badge } from "@/components/ui/badge";

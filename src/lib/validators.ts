@@ -1,6 +1,5 @@
-import { array, boolean, coerce, object, string } from "zod";
+import { array, boolean, coerce, email, object, string } from "zod";
 import { formatPrice } from "./utils";
-
 
 export const currency = string().refine(
   (value) => /^\d+(\.\d{2})?$/.test(formatPrice(Number(value))),
@@ -17,4 +16,24 @@ export const insertProductSchema = object({
   isFeatured: boolean(),
   banner: string().optional(),
   price: currency,
+});
+
+export const signInFormSchema = object({
+  email: email("Invalid email address").min(
+    3,
+    "Email must be at least 3 characters",
+  ),
+  password: string().min(3, "Password must be at least 3 characters"),
+});
+export const signUpFormSchema = object({
+  name: string().min(3, "Name must be at least 3 characters"),
+  email: email("Invalid email address").min(
+    3,
+    "Email must be at least 3 characters",
+  ),
+  password: string().min(3, "Password must be at least 3 characters"),
+  confirmPassword: string().min(6, "Confirm password be exactly password"),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Password do not match",
+  path: ["confirmPassword"],
 });

@@ -1,4 +1,21 @@
+import { Role } from "@/generated/prisma/enums";
+import { SALT_ROUNDS } from "@/lib/constants";
+import { hashSync } from "bcrypt-ts-edge";
 const sampleData = {
+  users: [
+    {
+      name: "John",
+      email: "admin@example.com",
+      password: hashSync("johnbenagedon", SALT_ROUNDS),
+      role: Role.ADMIN,
+    },
+    {
+      name: "Jane",
+      email: "user@example.com",
+      password: hashSync("johnbenagedon", SALT_ROUNDS),
+      role: Role.USER,
+    },
+  ],
   products: [
     {
       name: "Polo Sporting Stretch Shirt",

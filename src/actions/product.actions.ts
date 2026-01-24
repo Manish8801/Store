@@ -13,7 +13,8 @@ export const getLatestProducts = async () => {
 };
 
 export const getProductBySlug = async (slug: string) => {
-  return await prisma.product.findFirst({
+  const product = await prisma.product.findFirst({
     where: { slug },
   });
+  return convertToPlainObject(product);
 };

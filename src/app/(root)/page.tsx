@@ -1,4 +1,4 @@
-import { getLatestProducts } from "@/actions/product-action";
+import { getLatestProducts } from "@/actions/product.actions";
 import ProductList from "@/components/shared/product/product-list";
 
 export const metadata = {
